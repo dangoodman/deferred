@@ -1,6 +1,7 @@
 {
     "name": "dangoodman/deferred",
     "description": "Deferred callback execution based on RAII",
+    "license": "MIT",
 
     "require":
     {
