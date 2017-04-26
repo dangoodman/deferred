@@ -1,28 +1,26 @@
 <?php
-    namespace Deferred\Tests;
+namespace Deferred\Tests;
 
-    use Deferred\Deferred;
+use Deferred\Deferred;
 
 
-
-    class DeferredTest extends \PHPUnit_Framework_TestCase
+class DeferredTest extends \PHPUnit_Framework_TestCase
+{
+    public function testCallsCallbackOnDestruction()
     {
-        public function testCallsCallbackOnDestruction()
-        {
-            $deferredDestroying = false;
-            $self = $this;
-            $callbackCalled = false;
+        $deferredDestroying = false;
+        $self = $this;
+        $callbackCalled = false;
 
-            $deferred = new Deferred(function() use($self, &$deferredDestroying, &$callbackCalled)
-            {
-                $self->assertTrue($deferredDestroying);
-                $callbackCalled = true;
-            });
-            $this->assertFalse($callbackCalled);
+        $deferred = new Deferred(function() use($self, &$deferredDestroying, &$callbackCalled) {
+            $self->assertTrue($deferredDestroying);
+            $callbackCalled = true;
+        });
+        $this->assertFalse($callbackCalled);
 
-            $deferredDestroying = true;
-            unset($deferred);
-            $this->assertTrue($callbackCalled);
-        }
+        /** @noinspection PhpUnusedLocalVariableInspection */
+        $deferredDestroying = true;
+        unset($deferred);
+        $this->assertTrue($callbackCalled);
     }
-?>
+}
